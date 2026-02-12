@@ -28,58 +28,127 @@ Optional: Custom attack traffic (SYN, UDP, HTTP floods)
 - joblib
 - pyshark (optional)
 
----
+## Phase 1 — Dataset & Log Collection
 
-## Pipeline
+**Primary Dataset**
 
-1. Data Cleaning & Preprocessing
-   - Handle missing values
-   - Convert timestamps
-   - Remove irrelevant columns
+- CICDDoS2019
+- 80+ DDoS attack types
+- TCP, UDP, HTTP floods
+- Application-layer attacks
+- Labeled normal traffic
+- Use 10–20% sample for local training
 
-2. Feature Engineering
-   - Packets/sec (PPS)
-   - Bytes/sec (BPS)
-   - SYN/ACK ratio
-   - Entropy (IP/Port)
-   - Burstiness
-   - Inter-arrival times
-   - Time-window statistics
+**Optional: Custom Log Generation**
 
-3. Models
-   - Supervised classifier → known attack detection
-   - Isolation Forest → anomaly detection
+- SYN flood (hping3)
+- UDP flood
+- HTTP flood (Slowloris / GoldenEye)
+- Capture via Wireshark / tcpdump / server logs
 
-4. Decision Fusion  
-   Combines:
-   - Predicted class
-   - Confidence score
-   - Anomaly score
-   - Traffic intensity
+## Phase 2 — Data Cleaning & Preprocessing
 
-   Outputs:
-   - UDP Flood
-   - Slowloris
-   - HTTP Flood
-   - Unknown Suspicious Traffic
-   - Normal
+Notebook: `notebooks/01_data_preprocessing.ipynb`
 
----
+Tasks:
 
-## Dashboard
+- Load and merge CSVs
+- Handle missing values
+- Convert timestamps
+- Drop irrelevant columns
+- Rename features
+- Filter selected attack types (optional)
 
-Built with Streamlit.
+## Phase 3 — Feature Engineering
+
+Core feature logic implemented in:
+
+- `src/feature_extraction.py`
+- `notebooks/02_feature_engineering.ipynb`
+
+Engineered Features:
+
+- Packets per second (PPS)
+- Bytes per second (BPS)
+- SYN/ACK ratio
+- Flow duration
+- IP/Port entropy
+- Inter-arrival times
+- Packet size variance
+- Burstiness
+- Unique IP count
+- Time-window aggregated statistics
+
+## Phase 4 — Machine Learning Models
+
+### 4A — Supervised Model (Known Attacks)
+
+File: `src/train_supervised.py`
+
+- RandomForest or XGBoost
+- Metrics: Accuracy, Precision, Recall, F1, Confusion Matrix
+
+### 4B — Unsupervised Model (Anomaly Detection)
+
+File: `src/train_unsupervised.py`
+
+- Isolation Forest (primary)
+- LOF (optional)
+- Autoencoder (advanced)
+
+Evaluation:
+
+- Anomaly scores
+- ROC curves
+- Threshold tuning
+
+## Phase 5 — Decision Fusion Engine
+
+File: `src/fusion_engine.py`
+
+Combines:
+
+- Supervised prediction
+- Confidence score
+- Anomaly score
+- Traffic intensity metrics
+
+Final outputs:
+
+- UDP Flood
+- Slowloris
+- Unknown Suspicious Traffic
+- Low Confidence Attack
+- Normal
+
+Hybrid ML improves robustness against unseen attacks.
+
+## Phase 6 — Dashboard & Final Deployment
+
+File: `dashboard/app.py`  
+Built using Streamlit.
 
 Features:
 
 - Live predictions
-- PPS & entropy graphs
+- Entropy, PPS, burstiness metrics
+- Packet rate graphs
 - Anomaly score timeline
 - Traffic heatmaps
-- Log/PCAP upload
+- Attack classification
+- PCAP/log upload support
 
 Run:
 streamlit run dashboard/app.py
+
+## Final Outcome
+
+SentinelDDoS provides:
+
+- Real-time DDoS detection
+- Hybrid ML-based classification
+- Unknown attack identification
+- Interactive security analytics dashboard
 
 ---
 
