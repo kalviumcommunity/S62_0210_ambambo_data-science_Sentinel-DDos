@@ -1,4 +1,90 @@
-# 📘 Understanding the Data Science Lifecycle: Question → Data → Insight
+# SentinelDDoS
+
+Hybrid Machine Learning–based DDoS detection system combining supervised classification, anomaly detection, and a decision fusion engine with an interactive dashboard.
+
+---
+
+## Overview
+
+SentinelDDoS detects both known and unknown DDoS attacks by combining:
+
+- Supervised model (RandomForest / XGBoost)
+- Unsupervised anomaly detection (Isolation Forest)
+- Decision fusion engine for final classification
+- Streamlit dashboard for visualization
+
+Primary dataset: **CICDDoS2019**  
+Optional: Custom attack traffic (SYN, UDP, HTTP floods)
+
+---
+
+## Tech Stack
+
+- Python 3.10+
+- pandas, numpy
+- scikit-learn, xgboost
+- scipy, matplotlib, seaborn
+- streamlit
+- joblib
+- pyshark (optional)
+
+---
+
+## Pipeline
+
+1. Data Cleaning & Preprocessing
+   - Handle missing values
+   - Convert timestamps
+   - Remove irrelevant columns
+
+2. Feature Engineering
+   - Packets/sec (PPS)
+   - Bytes/sec (BPS)
+   - SYN/ACK ratio
+   - Entropy (IP/Port)
+   - Burstiness
+   - Inter-arrival times
+   - Time-window statistics
+
+3. Models
+   - Supervised classifier → known attack detection
+   - Isolation Forest → anomaly detection
+
+4. Decision Fusion  
+   Combines:
+   - Predicted class
+   - Confidence score
+   - Anomaly score
+   - Traffic intensity
+
+   Outputs:
+   - UDP Flood
+   - Slowloris
+   - HTTP Flood
+   - Unknown Suspicious Traffic
+   - Normal
+
+---
+
+## Dashboard
+
+Built with Streamlit.
+
+Features:
+
+- Live predictions
+- PPS & entropy graphs
+- Anomaly score timeline
+- Traffic heatmaps
+- Log/PCAP upload
+
+Run:
+streamlit run dashboard/app.py
+
+---
+
+# Understanding the Data Science Lifecycle: Question → Data → Insight
+
 ## 1️⃣ The Lifecycle Explained
 
 In data science, work does not begin with models or algorithms. It begins with a clear question. The lifecycle follows:
@@ -94,7 +180,9 @@ That insight can guide real decisions, such as rate-limiting strategies or autom
 Insight connects directly back to the original question. It enables action.
 
 ## 2️⃣ Applying the Lifecycle to the DDoS Prevention Project
+
 ### 📌 Project Context: Machine Learning-Based DDoS Detection System
+
 ### 🎯 The Question
 
 How can we detect abnormal network traffic patterns in real time to prevent Distributed Denial-of-Service attacks before they overload the system?
@@ -165,3 +253,7 @@ Only after defining the question would I explore and model the data.
 
 Data science is not about “seeing what comes out.”
 It is about asking the right question and using data to produce actionable insights.
+
+```
+
+```
