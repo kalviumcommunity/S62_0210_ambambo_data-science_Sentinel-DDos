@@ -364,3 +364,34 @@ conda --version
 conda info
 6. Verified operating system details using:
 systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
+
+## Jupyter Setup
+### 3️⃣ Conda Environment Activation
+
+Command:
+
+conda activate ds_env
+conda info --envs
+
+Output:
+
+ds_env    *    C:\Users\isaac\miniconda3\envs\ds_env
+
+### 4️⃣ Jupyter Launch Verification
+
+Command:
+
+jupyter notebook
+
+Result:
+
+Jupyter successfully launched at:
+
+http://localhost:8888/tree
+
+### 5️⃣ Python Execution Inside Jupyter
+
+Notebook Cell:
+
+import sys
+print(sys.version)
