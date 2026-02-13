@@ -323,6 +323,44 @@ Only after defining the question would I explore and model the data.
 Data science is not about “seeing what comes out.”
 It is about asking the right question and using data to produce actionable insights.
 
-```
+# 🖥 Environment Setup
+## 1️⃣ Operating System
+### Input: 
+systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
 
-```
+### Output: 
+OS Name: Microsoft Windows 11 Home
+
+OS Version: 10.0.26200 N/A Build 26200
+
+## 2️⃣ Python Version
+python --version => Python 3.13.9
+
+## 3️⃣ Anaconda Version
+conda --version => conda 25.11.0
+
+## 4️⃣ Conda Environment Details
+
+conda info
+
+### Key Information:
+
+1. Active Environment: base
+2. Environment Location: C:\Users\isaac\anaconda3
+3. Python Version: 3.13.9
+4. Conda Version: 25.11.0
+5. Platform: win-64
+6. Solver: libmamba (default)
+
+## 5️⃣ Setup Steps Followed
+
+1. Installed Anaconda Distribution for Windows.
+2. Opened Anaconda Prompt as Administrator.
+3. Verified Python installation using:
+python --version
+4. Verified Conda installation using:
+conda --version
+5. Checked environment configuration using:
+conda info
+6. Verified operating system details using:
+systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
