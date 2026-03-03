@@ -1,0 +1,25 @@
+# Ignore all dataset folders
+data/
+data/raw/
+data/interim/
+data/processed/
+
+# Ignore all CSV files anywhere
+*.csv
+*.zip
+*.gz
+
+# Ignore notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore environment files that are not needed
+venv/
+.env/
+
+# Ignore large models (optional)
+models/*.pkl
+models/*.joblib
+
+# Ignore temporary files
+*.log
+*.tmp
