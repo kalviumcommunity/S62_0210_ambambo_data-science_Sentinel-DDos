@@ -26,10 +26,10 @@ def predict():
 
     label = encoder.inverse_transform(prediction)
 
-    result = label[0]
+    summary = pd.Series(label).value_counts().to_dict()
 
     return jsonify({
-        "prediction": result
+    "traffic_summary": summary
     })
 
 if __name__ == "__main__":
